@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title>Firebase Authentication</title>
+    <link rel="stylesheet" href="signUp.css">
+</head>
+
+<body>
+
+    <div id="login-box">
+        <div class="left">
+            <h1 id='status'>login</h1>
+            <input type="text" id="email" name="email" placeholder="E-mail" />
+            <input type="password" id="password" name="password" placeholder="Password" />
+
+            <input type="submit" id='login' name="login" value="Login" />
+
+        </div>
+
+        <div class="right">
+            <span class="loginwith">Sign in with<br />social network</span>
+
+            <button class="social-signin facebook">Log in with facebook</button>
+            <button class="social-signin twitter">Log in with Twitter</button>
+            <button class="social-signin google">Log in with Google+</button>
+        </div>
+        <div class="or">OR</div>
+    </div>
+</body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAt2Fy7Qy2H8qelIG_SrotcWpOiJt0EHrk",
+        authDomain: "laundary-iitjv2.firebaseapp.com",
+        databaseURL: "https://laundary-iitjv2-default-rtdb.firebaseio.com",
+        projectId: "laundary-iitjv2",
+        storageBucket: "laundary-iitjv2.appspot.com",
+        messagingSenderId: "5721943638",
+        appId: "1:5721943638:web:98ccfb0893b3d7727d95f7"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+
+
+    login.addEventListener('click', (e) => {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                const dt = new Date();
+                update(ref(database, 'users/' + user.uid), {
+                    last_login: dt,
+                })
+                console.log(userCredential.user)
+                localStorage.setItem("userId", user.uid)
+                // console.log(userId)
+                alert('User loged in!');
+                window.location = 'temp.html';
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                alert(errorMessage);
+            });
+
+    });
+
+    const user = auth.currentUser;
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            //bla bla bla
+            // ...
+        } else {
+            // User is signed out
+            // ...
+            //bla bla bla
+        }
+    });
+
+    logout.addEventListener('click', (e) => {
+
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            alert('user loged out');
+        }).catch((error) => {
+            // An error happened.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            alert(errorMessage);
+        });
+
+    });
+
+</script>
+
+</html>

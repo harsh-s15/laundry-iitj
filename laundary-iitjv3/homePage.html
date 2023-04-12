@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <title>firebase editable table </title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <button type="submit" id="getData" class="btn btn-primary">Search data</button>
+
+    <div class="col-md-6">
+        <table class="table table-striped" id='dataTbl'>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Roll No</th>
+                    <!-- <th scope="col">Item</th> -->
+                    <!-- <th scope="col">Handle</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Mark</td>
+                    <!-- <td>Otto</td> -->
+                    <!-- <td>@mdo</td> -->
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script> -->
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getDatabase, set, ref, push, child, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAt2Fy7Qy2H8qelIG_SrotcWpOiJt0EHrk",
+            authDomain: "laundary-iitjv2.firebaseapp.com",
+            databaseURL: "https://laundary-iitjv2-default-rtdb.firebaseio.com",
+            projectId: "laundary-iitjv2",
+            storageBucket: "laundary-iitjv2.appspot.com",
+            messagingSenderId: "5721943638",
+            appId: "1:5721943638:web:98ccfb0893b3d7727d95f7"
+        };
+
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        // Get a reference to the database service
+
+        // const database = getDatabase(app);
+
+        var ref = firebase.database().ref();
+
+        ref.on("value", function (snapshot) {
+            console.log(snapshot.val());
+        }, function (error) {
+            console.log("Error: " + error.code);
+        });
+
+        // write data
+        // submitForm.addEventListener('click', (e) => {
+        //     var rollno = document.getElementById('rollno').value;
+        //     var item = document.getElementById('item').value;
+        //     // var email = document.getElementById('email').value;
+
+        //     const roll = push(child(ref(database), 'temp2')).key;
+        //     // console.log(userId)
+        //     // console.log(rollno, item)
+        //     set(ref(database, 'temp2/' + roll), {
+        //         item: item,
+
+        //     });
+        //     alert('saved');
+        // });
+
+        // read data
+        // getData.addEventListener('click', (e) => {
+
+        //     // $('#dataTbl td').remove();
+        //     var rowNum = 0;
+        //     const dbRef = ref(database, 'temp3/');
+
+        //     onValue(dbRef, (snapshot) => {
+        //         snapshot.forEach((childSnapshot) => {
+        //             const childKey = childSnapshot.key;
+        //             const childData = childSnapshot.val();
+        //             // ...
+        //             rowNum += 1;
+        //             var row = "<tr><td>" + rowNum + "</td><td>" + childData.rollno + "</td></tr>"
+
+        //             $(row).appendTo('#dataTbl');
+
+        //         });
+        //     }, {
+        //         onlyOnce: true
+        //     });
+
+
+        // });
+    </script>
+</body>
+
+</html>
